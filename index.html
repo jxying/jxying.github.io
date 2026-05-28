@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="RzstCYPRCJb9xMIpZ3NgZoW3OmlixOBn3z2bVwZpPNU" />
 
-  <!-- MathJax 3 with explicit delimiter config -->
+  <!-- MathJax 3 -->
   <script>
     window.MathJax = {
       tex: {
@@ -19,47 +19,55 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
   <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     /* ── Base ── */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Helvetica, Arial, sans-serif;
       font-size: 15px;
       color: #333;
-      background: #fff;
+      background: #f7f9fc;
+      line-height: 1.7;
     }
 
-    /* ── Navbar ── */
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
     .navbar {
-      background-color: #2c3e50;
+      background: linear-gradient(90deg, #1a2a3a 0%, #2c4a6e 100%);
       padding: 0 40px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
     .navbar ul {
       list-style: none;
       display: flex;
       flex-direction: row;
       gap: 0;
-      margin: 0;
-      padding: 0;
     }
     .navbar ul li a {
       display: block;
-      color: #ecf0f1;
+      color: #cdd9e8;
       text-decoration: none;
-      padding: 14px 18px;
+      padding: 15px 20px;
       font-size: 14px;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, color 0.2s;
     }
     .navbar ul li a:hover {
-      background-color: #3d5166;
+      background: rgba(255,255,255,0.1);
       color: #fff;
     }
 
-    /* ── Page wrapper ── */
+    /* ══════════════════════════════
+       PAGE WRAPPER
+    ══════════════════════════════ */
     .page {
-      max-width: 1000px;
-      margin: 40px auto;
+      max-width: 1020px;
+      margin: 40px auto 60px auto;
       padding: 0 30px;
       display: flex;
       flex-direction: row;
@@ -68,132 +76,289 @@
     }
 
     /* ══════════════════════════════
-       LEFT SIDEBAR  ~250px wide
-       exactly like jonbarron.info
+       LEFT SIDEBAR
     ══════════════════════════════ */
     .sidebar {
-      flex: 0 0 230px;
-      width: 230px;
-      text-align: center;
+      flex: 0 0 220px;
+      width: 220px;
       position: sticky;
-      top: 55px;           /* clears the navbar height */
+      top: 65px;
       align-self: flex-start;
+      text-align: center;
     }
+
+    /* Card wrapper for sidebar */
+    .sidebar-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 18px 20px 18px;
+      box-shadow: 0 4px 18px rgba(44,74,110,0.10);
+      border: 1px solid #e8edf3;
+    }
+
     .sidebar img {
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 150px;
       object-fit: cover;
-      border-radius: 50%;  /* circular photo — the most popular style */
+      border-radius: 50%;
       display: block;
       margin: 0 auto 14px auto;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      border: 4px solid #e8edf3;
+      box-shadow: 0 3px 12px rgba(44,74,110,0.15);
     }
     .sidebar .s-name {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
-      color: #2c3e50;
-      margin-bottom: 5px;
+      color: #1a2a3a;
+      margin-bottom: 4px;
       line-height: 1.3;
     }
     .sidebar .s-title {
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 3px;
-      line-height: 1.5;
+      font-size: 12.5px;
+      color: #5a7a9a;
+      margin-bottom: 2px;
     }
     .sidebar .s-dept {
-      font-size: 13px;
-      color: #555;
+      font-size: 12.5px;
+      color: #5a7a9a;
       margin-bottom: 14px;
       line-height: 1.5;
     }
     .sidebar .s-divider {
       border: none;
-      border-top: 1px solid #ddd;
-      margin: 10px auto;
-      width: 80%;
-    }
-    .sidebar .s-links {
-      font-size: 13px;
-      line-height: 2.2;
-    }
-    .sidebar .s-links a {
-      color: #2980b9;
-      text-decoration: none;
-      display: block;
-    }
-    .sidebar .s-links a:hover {
-      text-decoration: underline;
+      border-top: 1px solid #e4eaf2;
+      margin: 12px 0;
     }
     .sidebar .s-email {
-      font-size: 12px;
-      color: #555;
+      font-size: 11.5px;
+      color: #4a6a8a;
       word-break: break-all;
+      margin-bottom: 10px;
+      background: #f0f5fb;
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-family: monospace;
+    }
+    .sidebar .s-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .sidebar .s-links a {
+      display: block;
+      color: #fff;
+      background: linear-gradient(90deg, #2c4a6e, #3a7bd5);
+      text-decoration: none;
+      font-size: 12.5px;
+      padding: 6px 10px;
+      border-radius: 20px;
+      transition: opacity 0.2s, transform 0.15s;
+      font-weight: 500;
+    }
+    .sidebar .s-links a:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* Research interest tags in sidebar */
+    .sidebar .s-tags {
+      margin-top: 14px;
+    }
+    .sidebar .s-tags .tag-label {
+      font-size: 11px;
+      color: #8aa0b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       margin-bottom: 6px;
+    }
+    .sidebar .s-tags .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+    }
+    .sidebar .s-tags .tag {
+      font-size: 11px;
+      background: #eef3fa;
+      color: #2c4a6e;
+      border-radius: 10px;
+      padding: 3px 8px;
+      border: 1px solid #d0dcea;
     }
 
     /* ══════════════════════════════
-       RIGHT CONTENT  fills rest
+       RIGHT CONTENT
     ══════════════════════════════ */
     .content {
       flex: 1 1 0%;
       min-width: 0;
     }
-    .content p {
-      font-size: 15px;
-      line-height: 1.75;
-      margin-bottom: 14px;
-    }
-    .content a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    .content a:hover { text-decoration: underline; }
 
-    .content h3 {
-      font-size: 19px;
-      font-weight: bold;
-      color: #2c3e50;
-      border-bottom: 2px solid #2c3e50;
-      padding-bottom: 5px;
-      margin-top: 38px;
-      margin-bottom: 14px;
+    /* ── Content card ── */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(44,74,110,0.08);
+      border: 1px solid #e8edf3;
     }
-    .content h4 {
-      font-size: 15px;
+
+    /* ── Section heading ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-heading .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .icon-blue  { background: #dbeafe; }
+    .icon-green { background: #d1fae5; }
+    .icon-amber { background: #fef3c7; }
+    .icon-rose  { background: #ffe4e6; }
+
+    .section-heading h3 {
+      font-size: 18px;
       font-weight: bold;
+      color: #1a2a3a;
+      border-bottom: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── About me bio text ── */
+    .card p {
+      font-size: 15px;
+      line-height: 1.8;
       color: #444;
-      margin-top: 20px;
-      margin-bottom: 8px;
-    }
-    .content ul {
-      padding-left: 18px;
-      margin-bottom: 4px;
-    }
-    .content ul li {
-      font-size: 15px;
-      line-height: 1.65;
       margin-bottom: 10px;
     }
-    .content ul li p { margin: 0; }
+    .card p:last-child { margin-bottom: 0; }
+    .card a { color: #2c6fad; text-decoration: none; }
+    .card a:hover { text-decoration: underline; }
 
-    /* ── Responsive: stack on mobile ── */
+    /* ── Publication subsection heading ── */
+    .pub-category {
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #3a7bd5;
+      margin: 20px 0 10px 0;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed #c8d8ee;
+    }
+    .pub-category:first-of-type { margin-top: 4px; }
+
+    /* ── Publication note ── */
+    .pub-note {
+      font-size: 13px;
+      color: #7a90a8;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    /* ── Publication list ── */
+    .pub-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pub-list li {
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14.5px;
+      line-height: 1.65;
+      border-left: 3px solid transparent;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .pub-list li:hover {
+      background: #f4f8ff;
+      border-left-color: #3a7bd5;
+    }
+    .pub-list li p { margin: 0; }
+    .pub-list li a {
+      color: #2c6fad;
+      text-decoration: none;
+      font-size: 13px;
+      background: #eef4fc;
+      padding: 1px 7px;
+      border-radius: 4px;
+      margin-left: 2px;
+      transition: background 0.15s;
+    }
+    .pub-list li a:hover { background: #d0e4f7; }
+
+    /* ── Awards list ── */
+    .award-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .award-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid #f0f4f9;
+      font-size: 14.5px;
+      color: #333;
+    }
+    .award-list li:last-child { border-bottom: none; }
+    .award-list li .award-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Service list ── */
+    .service-block {
+      margin-bottom: 12px;
+      font-size: 14.5px;
+    }
+    .service-block:last-child { margin-bottom: 0; }
+    .service-label {
+      display: inline-block;
+      font-weight: bold;
+      color: #1a2a3a;
+      margin-bottom: 3px;
+    }
+    .service-block p {
+      color: #444;
+      margin: 0 !important;
+      font-size: 14.5px !important;
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 720px) {
       .page {
         flex-direction: column;
         align-items: center;
+        padding: 0 15px;
       }
       .sidebar {
         position: static;
         width: 100%;
-        max-width: 280px;
+        max-width: 300px;
       }
+      .card { padding: 20px 18px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── Navbar ── -->
+<!-- ══════════════ NAVBAR ══════════════ -->
 <nav class="navbar">
   <ul>
     <li><a href="#">Home</a></li>
@@ -204,49 +369,71 @@
   </ul>
 </nav>
 
-<!-- ── Two-column layout ── -->
+<!-- ══════════════ PAGE ══════════════ -->
 <div class="page">
 
   <!-- ════════ LEFT SIDEBAR ════════ -->
   <aside class="sidebar">
-    <img src="pictures/github.png" alt="Jiaxi Ying">
-    <div class="s-name">Jiaxi Ying</div>
-    <div class="s-title">Postdoctoral Fellow</div>
-    <div class="s-dept">Department of Mathematics<br>HKUST</div>
-    <hr class="s-divider">
-    <div class="s-email">jx.ying@connect.ust.hk</div>
-    <div class="s-links">
-      <a href="mailto:jx.ying@connect.ust.hk">Email</a>
-      <a href="https://scholar.google.com/citations?user=_IzItlcAAAAJ&hl=zh-CN">Google Scholar</a>
+    <div class="sidebar-card">
+      <img src="pictures/github.png" alt="Jiaxi Ying">
+      <div class="s-name">Jiaxi Ying</div>
+      <div class="s-title">Postdoctoral Fellow</div>
+      <div class="s-dept">Dept. of Mathematics<br>HKUST</div>
+      <hr class="s-divider">
+      <div class="s-email">jx.ying@connect.ust.hk</div>
+      <div class="s-links">
+        <a href="https://scholar.google.com/citations?user=_IzItlcAAAAJ&hl=zh-CN">&#x1F4DA; Google Scholar</a>
+      </div>
+      <div class="s-tags">
+        <div class="tag-label">Research Interests</div>
+        <div class="tags">
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Optimization</span>
+          <span class="tag">Graph Learning</span>
+          <span class="tag">Statistics</span>
+          <span class="tag">Finance</span>
+        </div>
+      </div>
     </div>
   </aside>
 
   <!-- ════════ RIGHT CONTENT ════════ -->
   <main class="content">
 
-    <!-- Bio -->
-    <p>
-      I am currently a postdoctoral fellow in the Department of Mathematics at the Hong Kong
-      University of Science and Technology, working with
-      <a href="https://www.math.hkust.edu.hk/~jfcai/">Prof. Jian-Feng Cai</a>.
-      Prior to this, I completed my Ph.D. in the Department of Electronic and Computer Engineering
-      from the same university in 2022, advised by
-      <a href="https://www.danielppalomar.com/">Prof. Daniel P. Palomar</a>.
-    </p>
-    <p>
-      My primary research interests lie at the intersection of machine learning, numerical
-      optimization, network science, and high-dimensional statistics, with applications to
-      financial systems.
-    </p>
+    <!-- About Me -->
+    <div class="card">
+      <div class="section-heading">
+        <div class="icon icon-blue">&#x1F393;</div>
+        <h3>About Me</h3>
+      </div>
+      <p>
+        I am currently a postdoctoral fellow in the Department of Mathematics at the Hong Kong
+        University of Science and Technology, working with
+        <a href="https://www.math.hkust.edu.hk/~jfcai/">Prof. Jian-Feng Cai</a>.
+        Prior to this, I completed my Ph.D. in the Department of Electronic and Computer
+        Engineering from the same university in 2022, advised by
+        <a href="https://www.danielppalomar.com/">Prof. Daniel P. Palomar</a>.
+      </p>
+      <p>
+        My primary research interests lie at the intersection of machine learning, numerical
+        optimization, network science, and high-dimensional statistics, with applications to
+        financial systems.
+      </p>
+    </div>
 
     <!-- Publications -->
-    <section>
-      <h3 id="publications">Publications</h3>
-      <p>Articles distinguished by "with ..." have alphabetical author lists;
-        &nbsp;<b>*</b> indicates the corresponding author.</p>
+    <div class="card" id="publications">
+      <div class="section-heading">
+        <div class="icon icon-green">&#x1F4C4;</div>
+        <h3>Publications</h3>
+      </div>
+      <p class="pub-note">
+        Articles distinguished by "with ..." have alphabetical author lists;&nbsp;
+        <b>*</b> indicates the corresponding author.
+      </p>
 
-      <h4>Preprints</h4>
-      <ul>
+      <div class="pub-category">Preprints</div>
+      <ul class="pub-list">
         <li><p>
           <b>Does the \(\ell_1\)-norm Learn a Sparse Graph under Laplacian Constrained
           Graphical Models?</b><br>
@@ -255,8 +442,8 @@
         </p></li>
       </ul>
 
-      <h4>Selected Journal and Conference Papers</h4>
-      <ul>
+      <div class="pub-category">Selected Journal and Conference Papers</div>
+      <ul class="pub-list">
         <li><p>
           <b>Fast and Provable Algorithms for Sparse PCA with Improved Sample Complexity</b><br>
           <b>J. Ying*</b> with J.-F. Cai, and Z. Xian,
@@ -270,13 +457,15 @@
           <a href="https://ieeexplore.ieee.org/abstract/document/11080072">[paper]</a>
         </p></li>
         <li><p>
-          <b>Polynomial Graphical Lasso: Learning Edges From Gaussian Graph-Stationary Signals</b><br>
+          <b>Polynomial Graphical Lasso: Learning Edges From Gaussian Graph-Stationary
+          Signals</b><br>
           A. Buciulea, <b>J. Ying</b>, A. Marques, and D.P. Palomar,
           <i>IEEE Transactions on Signal Processing</i>, 2025.
           <a href="https://ieeexplore.ieee.org/abstract/document/10899391">[paper]</a>
         </p></li>
         <li><p>
-          <b>Adaptive Passive-Aggressive Framework for Online Regression with Side Information</b><br>
+          <b>Adaptive Passive-Aggressive Framework for Online Regression with Side
+          Information</b><br>
           R. Shi, <b>J. Ying</b>, and D.P. Palomar,
           <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2024.
           <a href="https://openreview.net/pdf?id=kV80nC1afE">[paper]</a>
@@ -343,7 +532,8 @@
         <li><p>
           <b>Minimax Estimation of Laplacian Constrained Precision Matrices</b><br>
           <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
-          <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021.
+          <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>,
+          2021.
           <a href="http://proceedings.mlr.press/v130/ying21a/ying21a.pdf">[paper]</a>
         </p></li>
         <li><p>
@@ -378,8 +568,8 @@
           <a href="https://proceedings.neurips.cc/paper_files/paper/2019/file/90cc440b1b8caa520c562ac4e4bbcb51-Paper.pdf">[paper]</a>
         </p></li>
         <li><p>
-          <b>Vandermonde Factorization of Hankel Matrix for Complex Exponential Signal Recovery
-          — Application in Fast NMR Spectroscopy</b><br>
+          <b>Vandermonde Factorization of Hankel Matrix for Complex Exponential Signal
+          Recovery — Application in Fast NMR Spectroscopy</b><br>
           <b>J. Ying</b>, J.-F. Cai, D. Guo, G. Tang, Z. Chen, and X. Qu,
           <i>IEEE Transactions on Signal Processing</i>, 2018.
           <a href="https://ieeexplore.ieee.org/document/8457300">[paper]</a>
@@ -393,13 +583,13 @@
         </p></li>
       </ul>
 
-      <h4>Book Chapters and Other Conference Papers</h4>
-      <ul>
+      <div class="pub-category">Book Chapters and Other Conference Papers</div>
+      <ul class="pub-list">
         <li><p>
           <b>Learning Graphs from Heavy-Tailed Data</b><br>
           J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
-          <i>Elliptically Symmetric Distributions in Signal Processing and Machine Learning</i>,
-          Springer, 2024.
+          <i>Elliptically Symmetric Distributions in Signal Processing and Machine
+          Learning</i>, Springer, 2024.
           <a href="https://jxying.github.io/">[paper]</a>
         </p></li>
         <li><p>
@@ -411,15 +601,15 @@
         <li><p>
           <b>Network Topology Inference with Sparsity and Laplacian Constraints</b><br>
           <b>J. Ying</b>, X. Han, R. Zhou, X. Wang, H.C. So,
-          <i>IEEE International Conference on Information, Communication and Networks (ICICN)</i>,
-          2023.
+          <i>IEEE International Conference on Information, Communication and Networks
+          (ICICN)</i>, 2023.
           <a href="https://ieeexplore.ieee.org/document/10393493">[paper]</a>
         </p></li>
         <li><p>
           <b>Estimating Normalized Graph Laplacians in Financial Markets</b><br>
           J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
-          <i>IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</i>,
-          2023.
+          <i>IEEE International Conference on Acoustics, Speech and Signal Processing
+          (ICASSP)</i>, 2023.
           <a href="https://ieeexplore.ieee.org/document/10095870">[paper]</a>
         </p></li>
         <li><p>
@@ -430,45 +620,71 @@
           <a href="https://ieeexplore.ieee.org/document/9723090">[paper]</a>
         </p></li>
         <li><p>
-          <b>Bipartite Structured Gaussian Graphical Modeling via Adjacency Spectral Priors</b><br>
+          <b>Bipartite Structured Gaussian Graphical Modeling via Adjacency Spectral
+          Priors</b><br>
           S. Kumar, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
           <i>53rd Asilomar Conference on Signals, Systems and Computers</i>, 2019.
           <a href="https://ieeexplore.ieee.org/document/9048752">[paper]</a>
         </p></li>
         <li><p>
-          <b>Accelerated Magnetic Resonance Spectroscopy with Vandermonde Factorization</b><br>
+          <b>Accelerated Magnetic Resonance Spectroscopy with Vandermonde
+          Factorization</b><br>
           X. Qu, <b>J. Ying</b>, J.-F. Cai, Z. Chen,
           <i>39th International Conference of the IEEE Engineering in Medicine and Biology
           Society (EMBC)</i>, 2019.
           <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8037620">[paper]</a>
         </p></li>
       </ul>
-    </section>
+    </div>
 
     <!-- Awards -->
-    <section>
-      <h3 id="awards">Awards</h3>
-      <ul>
-        <li>Hong Kong Research Grants Council Postdoctoral Fellowship, 2024.</li>
-        <li>NeurIPS Scholar Award, 2023.</li>
-        <li>HKUST Redbird Academic Excellent Scholarship, 2021.</li>
-        <li>Outstanding Master's Thesis Award of Chinese Institute of Electronics, 2018.</li>
-        <li>Excellent Master Thesis in Fujian Province, 2017.</li>
+    <div class="card" id="awards">
+      <div class="section-heading">
+        <div class="icon icon-amber">&#x1F3C6;</div>
+        <h3>Awards</h3>
+      </div>
+      <ul class="award-list">
+        <li>
+          <span class="award-icon">&#x1F947;</span>
+          <span>Hong Kong Research Grants Council Postdoctoral Fellowship, 2024.</span>
+        </li>
+        <li>
+          <span class="award-icon">&#x1F3C5;</span>
+          <span>NeurIPS Scholar Award, 2023.</span>
+        </li>
+        <li>
+          <span class="award-icon">&#x1F4DC;</span>
+          <span>HKUST Redbird Academic Excellent Scholarship, 2021.</span>
+        </li>
+        <li>
+          <span class="award-icon">&#x1F4DC;</span>
+          <span>Outstanding Master's Thesis Award of Chinese Institute of Electronics, 2018.</span>
+        </li>
+        <li>
+          <span class="award-icon">&#x1F4DC;</span>
+          <span>Excellent Master Thesis in Fujian Province, 2017.</span>
+        </li>
       </ul>
-    </section>
+    </div>
 
     <!-- Academic Service -->
-    <section>
-      <h3 id="service">Academic Service</h3>
-      <ul>
-        <li><p><b>Conference review:</b> NeurIPS, ICML, ICLR, AISTATS, AAAI (PC member).</p></li>
-        <li><p><b>Journal review:</b> Journal of the Royal Statistical Society, Journal of Machine
-          Learning Research, Transactions on Machine Learning Research,
-          IEEE Trans. on Signal Processing,
+    <div class="card" id="service">
+      <div class="section-heading">
+        <div class="icon icon-rose">&#x270D;&#xFE0F;</div>
+        <h3>Academic Service</h3>
+      </div>
+      <div class="service-block">
+        <span class="service-label">Conference Review</span>
+        <p>NeurIPS, ICML, ICLR, AISTATS, AAAI (PC member).</p>
+      </div>
+      <div class="service-block">
+        <span class="service-label">Journal Review</span>
+        <p>Journal of the Royal Statistical Society, Journal of Machine Learning Research,
+          Transactions on Machine Learning Research, IEEE Trans. on Signal Processing,
           IEEE Trans. on Signal and Information Processing over Networks,
-          IEEE Trans. on Network Science and Engineering.</p></li>
-      </ul>
-    </section>
+          IEEE Trans. on Network Science and Engineering.</p>
+      </div>
+    </div>
 
   </main>
 </div>
