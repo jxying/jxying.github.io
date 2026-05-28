@@ -5,15 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="RzstCYPRCJb9xMIpZ3NgZoW3OmlixOBn3z2bVwZpPNU" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <!-- Bootstrap 3 (explicit https) -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css">
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+  <!-- MathJax 3 with explicit inline + display delimiter config -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']]
+      }
+    };
+  </script>
   <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
   <style>
+    /* ── Reset & Base ── */
     body {
       font-family: Helvetica, Arial, sans-serif;
       font-size: 15px;
@@ -27,6 +41,7 @@
       background-color: #2c3e50;
       border: none;
       border-radius: 0;
+      margin-bottom: 0;
     }
     .navbar-inverse .navbar-nav > li > a {
       color: #ecf0f1;
@@ -38,20 +53,25 @@
     }
 
     /* ── Main layout wrapper ── */
+    /* Kept outside Bootstrap grid to avoid display:block conflict */
     .main-wrapper {
       max-width: 1100px;
       margin: 40px auto;
-      padding: 0 20px;
+      padding: 0 30px;
       display: flex;
+      flex-direction: row;
       gap: 50px;
-      align-items: flex-start;
+      align-items: flex-start; /* required for sticky to work in flex */
     }
 
     /* ── LEFT SIDEBAR ── */
     .sidebar {
-      flex: 0 0 220px;
-      min-width: 220px;
+      flex: 0 0 210px;
+      min-width: 210px;
       text-align: center;
+      /* Sticky sidebar: needs align-self:flex-start on parent AND position:sticky here */
+      position: sticky;
+      top: 20px;
     }
     .sidebar img {
       width: 100%;
@@ -62,7 +82,7 @@
       margin: 0 auto 16px auto;
     }
     .sidebar .name {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: bold;
       margin-bottom: 4px;
       color: #2c3e50;
@@ -76,10 +96,15 @@
       font-size: 13px;
       color: #666;
       margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .sidebar hr {
+      border-color: #ddd;
+      margin: 12px 0;
     }
     .sidebar .contact-links {
       font-size: 13px;
-      line-height: 2;
+      line-height: 2.2;
       text-align: center;
     }
     .sidebar .contact-links a {
@@ -89,15 +114,11 @@
     .sidebar .contact-links a:hover {
       text-decoration: underline;
     }
-    .sidebar hr {
-      border-color: #ddd;
-      margin: 12px 0;
-    }
 
     /* ── RIGHT CONTENT ── */
     .content {
-      flex: 1;
-      min-width: 0;
+      flex: 1 1 0%;
+      min-width: 0; /* prevents flex overflow on long text/links */
     }
     .content p {
       font-size: 15px;
@@ -116,17 +137,18 @@
     .content h4 {
       font-size: 16px;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 22px;
       margin-bottom: 10px;
       color: #444;
     }
     .content ul {
       padding-left: 20px;
+      margin-bottom: 0;
     }
     .content ul li {
       margin-bottom: 10px;
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .content ul li p {
       margin: 0;
@@ -139,13 +161,15 @@
       text-decoration: underline;
     }
 
-    /* ── Responsive: stack on small screens ── */
+    /* ── Responsive: stack sidebar above content on small screens ── */
     @media (max-width: 768px) {
       .main-wrapper {
         flex-direction: column;
         align-items: center;
+        padding: 0 15px;
       }
       .sidebar {
+        position: static; /* disable sticky on mobile */
         flex: none;
         width: 100%;
         max-width: 300px;
@@ -156,7 +180,7 @@
 <body>
 
 <!-- ── Navigation Bar ── -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" role="navigation">
   <div class="container">
     <ul class="nav navbar-nav">
       <li><a href="#">Home</a></li>
@@ -168,219 +192,272 @@
   </div>
 </nav>
 
-<!-- ── Main Layout ── -->
+<!-- ── Main Layout: outside Bootstrap grid to avoid flex conflict ── -->
 <div class="main-wrapper">
 
   <!-- LEFT SIDEBAR -->
-  <div class="sidebar">
+  <aside class="sidebar" role="complementary">
     <img src="pictures/math.jpg" alt="Jiaxi Ying">
     <div class="name">Jiaxi Ying</div>
     <div class="role">Postdoctoral Fellow</div>
-    <div class="dept">Dept. of Mathematics, HKUST</div>
+    <div class="dept">Department of Mathematics<br>HKUST</div>
     <hr>
     <div class="contact-links">
-      <div>📧 <a href="mailto:jx.ying@connect.ust.hk">jx.ying@connect.ust.hk</a></div>
+      <div>Email: <a href="mailto:jx.ying@connect.ust.hk">jx.ying@connect.ust.hk</a></div>
       <div><a href="https://scholar.google.com/citations?user=_IzItlcAAAAJ&hl=zh-CN">Google Scholar</a></div>
     </div>
-  </div>
+  </aside>
 
   <!-- RIGHT CONTENT -->
-  <div class="content">
+  <main class="content" role="main">
 
     <!-- Bio -->
     <p>
-      I am currently a postdoctoral fellow in the Department of Mathematics at the Hong Kong University of Science and Technology,
-      working with <a href="https://www.math.hkust.edu.hk/~jfcai/">Prof. Jian-Feng Cai</a>.
-      Prior to this, I completed my Ph.D. in the Department of Electronic and Computer Engineering from the same university in 2022,
-      advised by <a href="https://www.danielppalomar.com/">Prof. Daniel P. Palomar</a>.
+      I am currently a postdoctoral fellow in the Department of Mathematics at the Hong Kong
+      University of Science and Technology, working with
+      <a href="https://www.math.hkust.edu.hk/~jfcai/">Prof. Jian-Feng Cai</a>.
+      Prior to this, I completed my Ph.D. in the Department of Electronic and Computer Engineering
+      from the same university in 2022, advised by
+      <a href="https://www.danielppalomar.com/">Prof. Daniel P. Palomar</a>.
     </p>
     <p>
-      My primary research interests lie at the intersection of machine learning, numerical optimization, network science,
-      and high-dimensional statistics, with applications to financial systems.
+      My primary research interests lie at the intersection of machine learning, numerical
+      optimization, network science, and high-dimensional statistics, with applications to
+      financial systems.
     </p>
 
     <!-- Publications -->
-    <h3 id="publications">Publications</h3>
-    <p>Articles distinguished by "with ..." have alphabetical author lists; &nbsp;<b>*</b> indicates the corresponding author.</p>
+    <section>
+      <h3 id="publications">Publications</h3>
+      <p>Articles distinguished by "with ..." have alphabetical author lists;
+        &nbsp;<b>*</b> indicates the corresponding author.</p>
 
-    <h4>Preprints</h4>
-    <ul>
-      <li><p>
-        <b>Does the \(\ell_1\)-norm Learn a Sparse Graph under Laplacian Constrained Graphical Models?</b><br>
-        <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>preprint</i>.
-        <a href="https://arxiv.org/pdf/2006.14925.pdf">[paper]</a>
-      </p></li>
-    </ul>
+      <h4>Preprints</h4>
+      <ul>
+        <li><p>
+          <b>Does the \(\ell_1\)-norm Learn a Sparse Graph under Laplacian Constrained
+          Graphical Models?</b><br>
+          <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>preprint</i>.
+          <a href="https://arxiv.org/pdf/2006.14925.pdf">[paper]</a>
+        </p></li>
+      </ul>
 
-    <h4>Selected Journal and Conference Papers</h4>
-    <ul>
-      <li><p>
-        <b>Fast and Provable Algorithms for Sparse PCA with Improved Sample Complexity</b><br>
-        <b>J. Ying*</b> with J.-F. Cai, and Z. Xian, <i>International Conference on Machine Learning (ICML)</i>, 2025.
-        <a href="https://openreview.net/pdf?id=p7IdHkKMiJ">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Time-Varying Graph Learning for Data with Heavy-Tailed Distribution</b><br>
-        A. Javaheri, <b>J. Ying</b>, D.P. Palomar, and F. Marvasti, <i>IEEE Transactions on Signal Processing</i>, 2025.
-        <a href="https://ieeexplore.ieee.org/abstract/document/11080072">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Polynomial Graphical Lasso: Learning Edges From Gaussian Graph-Stationary Signals</b><br>
-        A. Buciulea, <b>J. Ying</b>, A. Marques, and D.P. Palomar, <i>IEEE Transactions on Signal Processing</i>, 2025.
-        <a href="https://ieeexplore.ieee.org/abstract/document/10899391">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Adaptive Passive-Aggressive Framework for Online Regression with Side Information</b><br>
-        R. Shi, <b>J. Ying</b>, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2024.
-        <a href="https://openreview.net/pdf?id=kV80nC1afE">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>A Fast and Provable Algorithm for Sparse Phase Retrieval</b><br>
-        <b>J. Ying*</b> with J.-F. Cai, Y. Long, and R. Wen, <i>International Conference on Learning Representations (ICLR)</i>, 2024.
-        <a href="https://openreview.net/forum?id=BlkxbI6vzl">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Fast Projected Newton-like Method for Precision Matrix Estimation under Total Positivity</b><br>
-        <b>J. Ying*</b> with J.-F. Cai, J.V.M. Cardoso, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2023.
-        <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/e878c8f38381d0964677fb9536c494ee-Paper-Conference.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Learning Large-Scale MTP\(_2\) Gaussian Graphical Models via Bridge-Block Decomposition</b><br>
-        X. Wang, <b>J. Ying*</b>, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2023.
-        <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/e7e506bc5a94768243083216fe51d98b-Paper-Conference.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Efficient and Scalable High-Order Portfolios Design via Parametric Skew-t Distribution</b><br>
-        X. Wang, R. Zhou, <b>J. Ying</b>, and D.P. Palomar, <i>IEEE Transactions on Signal Processing</i>, 2023.
-        <a href="https://ieeexplore.ieee.org/document/10283468">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Adaptive Estimation of Graphical Models under Total Positivity</b><br>
-        <b>J. Ying*</b>, J.V.M. Cardoso, and D.P. Palomar, <i>International Conference on Machine Learning (ICML)</i>, 2023.
-        <a href="https://proceedings.mlr.press/v202/ying23a/ying23a.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Learning Bipartite Graphs: Heavy Tails and Multiple Components</b><br>
-        J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2022.
-        <a href="https://proceedings.neurips.cc/paper_files/paper/2022/hash/5adff4d5402703418f7210a4004e1314-Abstract-Conference.html">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Covariance Matrix Estimation Under Low-Rank Factor Model with Nonnegative Correlations</b><br>
-        R. Zhou, <b>J. Ying*</b>, and D.P. Palomar, <i>IEEE Transactions on Signal Processing</i>, 2022.
-        <a href="https://ieeexplore.ieee.org/document/9837439">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Tensor-Based Information Monitoring Receiver in UAV-Aided MIMO Communication Systems</b><br>
-        X. Han, X. Zhao, <b>J. Ying</b>, and F. Gao, <i>IEEE Wireless Communications Letters</i>, 2022.
-        <a href="https://ieeexplore.ieee.org/document/9586076">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Efficient Algorithms for General Isotone Optimization</b><br>
-        X. Wang, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>The Thirty-Sixth AAAI Conference on Artificial Intelligence (AAAI)</i>, 2022.
-        <a href="https://ojs.aaai.org/index.php/AAAI/article/view/20835">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Minimax Estimation of Laplacian Constrained Precision Matrices</b><br>
-        <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021.
-        <a href="http://proceedings.mlr.press/v130/ying21a/ying21a.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Graphical Models for Heavy-Tailed Markets</b><br>
-        J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2021.
-        <a href="https://proceedings.neurips.cc/paper/2021/hash/a64a034c3cb8eac64eb46ea474902797-Abstract.html">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Semi-Blind Receivers for UAV M-KRST Coding MIMO Systems Based on Nested Tensor Models</b><br>
-        X. Han, Y. Zhao and, <b>J. Ying</b>, <i>IEEE Wireless Communications Letters</i>, 2021.
-        <a href="https://ieeexplore.ieee.org/document/9222218">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Nonconvex Sparse Graph Learning under Laplacian Constrained Graphical Model</b><br>
-        <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2020.
-        <a href="https://proceedings.neurips.cc/paper/2020/hash/4ef42b32bccc9485b10b8183507e5d82-Abstract.html">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>A Unified Framework For Structured Graph Learning Via Spectral Constraints</b><br>
-        S. Kumar, <b>J. Ying*</b>, J.V.M. Cardoso, and D.P. Palomar, <i>Journal of Machine Learning Research</i>, 2020.
-        <a href="https://www.jmlr.org/papers/volume21/19-276/19-276.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Structured Graph Learning Via Laplacian Spectral Constraints</b><br>
-        S. Kumar, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2019.
-        <a href="https://proceedings.neurips.cc/paper_files/paper/2019/file/90cc440b1b8caa520c562ac4e4bbcb51-Paper.pdf">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Vandermonde Factorization of Hankel Matrix for Complex Exponential Signal Recovery — Application in Fast NMR Spectroscopy</b><br>
-        <b>J. Ying</b>, J.-F. Cai, D. Guo, G. Tang, Z. Chen, and X. Qu, <i>IEEE Transactions on Signal Processing</i>, 2018.
-        <a href="https://ieeexplore.ieee.org/document/8457300">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Hankel Matrix Nuclear Norm Regularized Tensor Completion for \(N\)-dimensional Exponential Signals</b><br>
-        <b>J. Ying</b>, H. Lu, Q. Wei, J.-F. Cai, D. Guo, J. Wu, Z. Chen, and X. Qu, <i>IEEE Transactions on Signal Processing</i>, 2017.
-        <a href="https://ieeexplore.ieee.org/document/7903737">[paper]</a>
-      </p></li>
-    </ul>
+      <h4>Selected Journal and Conference Papers</h4>
+      <ul>
+        <li><p>
+          <b>Fast and Provable Algorithms for Sparse PCA with Improved Sample Complexity</b><br>
+          <b>J. Ying*</b> with J.-F. Cai, and Z. Xian,
+          <i>International Conference on Machine Learning (ICML)</i>, 2025.
+          <a href="https://openreview.net/pdf?id=p7IdHkKMiJ">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Time-Varying Graph Learning for Data with Heavy-Tailed Distribution</b><br>
+          A. Javaheri, <b>J. Ying</b>, D.P. Palomar, and F. Marvasti,
+          <i>IEEE Transactions on Signal Processing</i>, 2025.
+          <a href="https://ieeexplore.ieee.org/abstract/document/11080072">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Polynomial Graphical Lasso: Learning Edges From Gaussian Graph-Stationary Signals</b><br>
+          A. Buciulea, <b>J. Ying</b>, A. Marques, and D.P. Palomar,
+          <i>IEEE Transactions on Signal Processing</i>, 2025.
+          <a href="https://ieeexplore.ieee.org/abstract/document/10899391">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Adaptive Passive-Aggressive Framework for Online Regression with Side Information</b><br>
+          R. Shi, <b>J. Ying</b>, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2024.
+          <a href="https://openreview.net/pdf?id=kV80nC1afE">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>A Fast and Provable Algorithm for Sparse Phase Retrieval</b><br>
+          <b>J. Ying*</b> with J.-F. Cai, Y. Long, and R. Wen,
+          <i>International Conference on Learning Representations (ICLR)</i>, 2024.
+          <a href="https://openreview.net/forum?id=BlkxbI6vzl">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Fast Projected Newton-like Method for Precision Matrix Estimation under Total
+          Positivity</b><br>
+          <b>J. Ying*</b> with J.-F. Cai, J.V.M. Cardoso, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2023.
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/e878c8f38381d0964677fb9536c494ee-Paper-Conference.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Learning Large-Scale MTP\(_2\) Gaussian Graphical Models via Bridge-Block
+          Decomposition</b><br>
+          X. Wang, <b>J. Ying*</b>, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2023.
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/e7e506bc5a94768243083216fe51d98b-Paper-Conference.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Efficient and Scalable High-Order Portfolios Design via Parametric Skew-t
+          Distribution</b><br>
+          X. Wang, R. Zhou, <b>J. Ying</b>, and D.P. Palomar,
+          <i>IEEE Transactions on Signal Processing</i>, 2023.
+          <a href="https://ieeexplore.ieee.org/document/10283468">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Adaptive Estimation of Graphical Models under Total Positivity</b><br>
+          <b>J. Ying*</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>International Conference on Machine Learning (ICML)</i>, 2023.
+          <a href="https://proceedings.mlr.press/v202/ying23a/ying23a.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Learning Bipartite Graphs: Heavy Tails and Multiple Components</b><br>
+          J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2022.
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2022/hash/5adff4d5402703418f7210a4004e1314-Abstract-Conference.html">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Covariance Matrix Estimation Under Low-Rank Factor Model with Nonnegative
+          Correlations</b><br>
+          R. Zhou, <b>J. Ying*</b>, and D.P. Palomar,
+          <i>IEEE Transactions on Signal Processing</i>, 2022.
+          <a href="https://ieeexplore.ieee.org/document/9837439">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Tensor-Based Information Monitoring Receiver in UAV-Aided MIMO Communication
+          Systems</b><br>
+          X. Han, X. Zhao, <b>J. Ying</b>, and F. Gao,
+          <i>IEEE Wireless Communications Letters</i>, 2022.
+          <a href="https://ieeexplore.ieee.org/document/9586076">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Efficient Algorithms for General Isotone Optimization</b><br>
+          X. Wang, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>The Thirty-Sixth AAAI Conference on Artificial Intelligence (AAAI)</i>, 2022.
+          <a href="https://ojs.aaai.org/index.php/AAAI/article/view/20835">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Minimax Estimation of Laplacian Constrained Precision Matrices</b><br>
+          <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>International Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2021.
+          <a href="http://proceedings.mlr.press/v130/ying21a/ying21a.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Graphical Models for Heavy-Tailed Markets</b><br>
+          J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2021.
+          <a href="https://proceedings.neurips.cc/paper/2021/hash/a64a034c3cb8eac64eb46ea474902797-Abstract.html">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Semi-Blind Receivers for UAV M-KRST Coding MIMO Systems Based on Nested Tensor
+          Models</b><br>
+          X. Han, Y. Zhao and, <b>J. Ying</b>,
+          <i>IEEE Wireless Communications Letters</i>, 2021.
+          <a href="https://ieeexplore.ieee.org/document/9222218">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Nonconvex Sparse Graph Learning under Laplacian Constrained Graphical Model</b><br>
+          <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2020.
+          <a href="https://proceedings.neurips.cc/paper/2020/hash/4ef42b32bccc9485b10b8183507e5d82-Abstract.html">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>A Unified Framework For Structured Graph Learning Via Spectral Constraints</b><br>
+          S. Kumar, <b>J. Ying*</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>Journal of Machine Learning Research</i>, 2020.
+          <a href="https://www.jmlr.org/papers/volume21/19-276/19-276.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Structured Graph Learning Via Laplacian Spectral Constraints</b><br>
+          S. Kumar, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2019.
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2019/file/90cc440b1b8caa520c562ac4e4bbcb51-Paper.pdf">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Vandermonde Factorization of Hankel Matrix for Complex Exponential Signal Recovery
+          — Application in Fast NMR Spectroscopy</b><br>
+          <b>J. Ying</b>, J.-F. Cai, D. Guo, G. Tang, Z. Chen, and X. Qu,
+          <i>IEEE Transactions on Signal Processing</i>, 2018.
+          <a href="https://ieeexplore.ieee.org/document/8457300">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Hankel Matrix Nuclear Norm Regularized Tensor Completion for
+          \(N\)-dimensional Exponential Signals</b><br>
+          <b>J. Ying</b>, H. Lu, Q. Wei, J.-F. Cai, D. Guo, J. Wu, Z. Chen, and X. Qu,
+          <i>IEEE Transactions on Signal Processing</i>, 2017.
+          <a href="https://ieeexplore.ieee.org/document/7903737">[paper]</a>
+        </p></li>
+      </ul>
 
-    <h4>Book Chapters and Other Conference Papers</h4>
-    <ul>
-      <li><p>
-        <b>Learning Graphs from Heavy-Tailed Data</b><br>
-        J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar, <i>Elliptically Symmetric Distributions in Signal Processing and Machine Learning</i>, Springer, 2024.
-        <a href="https://jxying.github.io/">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Nonconvex Graph Learning: Sparsity, Heavy-tails, and Clustering</b><br>
-        J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar, <i>Signal Processing and Machine Learning Theory</i>, Academic Press, 2024.
-        <a href="https://www.sciencedirect.com/science/article/pii/B9780323917728000223">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Network Topology Inference with Sparsity and Laplacian Constraints</b><br>
-        <b>J. Ying</b>, X. Han, R. Zhou, X. Wang, H.C. So, <i>IEEE International Conference on Information, Communication and Networks (ICICN)</i>, 2023.
-        <a href="https://ieeexplore.ieee.org/document/10393493">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Estimating Normalized Graph Laplacians in Financial Markets</b><br>
-        J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar, <i>IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</i>, 2023.
-        <a href="https://ieeexplore.ieee.org/document/10095870">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>A Fast Algorithm for Graph Learning under Attractive Gaussian Markov Random Fields</b><br>
-        <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>55th Asilomar Conference on Signals, Systems and Computers</i>, 2021.
-        <a href="https://ieeexplore.ieee.org/document/9723090">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Bipartite Structured Gaussian Graphical Modeling via Adjacency Spectral Priors</b><br>
-        S. Kumar, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar, <i>53rd Asilomar Conference on Signals, Systems and Computers</i>, 2019.
-        <a href="https://ieeexplore.ieee.org/document/9048752">[paper]</a>
-      </p></li>
-      <li><p>
-        <b>Accelerated Magnetic Resonance Spectroscopy with Vandermonde Factorization</b><br>
-        X. Qu, <b>J. Ying</b>, J.-F. Cai, Z. Chen, <i>39th International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC)</i>, 2019.
-        <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8037620">[paper]</a>
-      </p></li>
-    </ul>
+      <h4>Book Chapters and Other Conference Papers</h4>
+      <ul>
+        <li><p>
+          <b>Learning Graphs from Heavy-Tailed Data</b><br>
+          J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
+          <i>Elliptically Symmetric Distributions in Signal Processing and Machine Learning</i>,
+          Springer, 2024.
+          <a href="https://jxying.github.io/">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Nonconvex Graph Learning: Sparsity, Heavy-tails, and Clustering</b><br>
+          J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
+          <i>Signal Processing and Machine Learning Theory</i>, Academic Press, 2024.
+          <a href="https://www.sciencedirect.com/science/article/pii/B9780323917728000223">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Network Topology Inference with Sparsity and Laplacian Constraints</b><br>
+          <b>J. Ying</b>, X. Han, R. Zhou, X. Wang, H.C. So,
+          <i>IEEE International Conference on Information, Communication and Networks (ICICN)</i>,
+          2023.
+          <a href="https://ieeexplore.ieee.org/document/10393493">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Estimating Normalized Graph Laplacians in Financial Markets</b><br>
+          J.V.M. Cardoso, <b>J. Ying</b>, and D.P. Palomar,
+          <i>IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</i>,
+          2023.
+          <a href="https://ieeexplore.ieee.org/document/10095870">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>A Fast Algorithm for Graph Learning under Attractive Gaussian Markov Random
+          Fields</b><br>
+          <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>55th Asilomar Conference on Signals, Systems and Computers</i>, 2021.
+          <a href="https://ieeexplore.ieee.org/document/9723090">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Bipartite Structured Gaussian Graphical Modeling via Adjacency Spectral Priors</b><br>
+          S. Kumar, <b>J. Ying</b>, J.V.M. Cardoso, and D.P. Palomar,
+          <i>53rd Asilomar Conference on Signals, Systems and Computers</i>, 2019.
+          <a href="https://ieeexplore.ieee.org/document/9048752">[paper]</a>
+        </p></li>
+        <li><p>
+          <b>Accelerated Magnetic Resonance Spectroscopy with Vandermonde Factorization</b><br>
+          X. Qu, <b>J. Ying</b>, J.-F. Cai, Z. Chen,
+          <i>39th International Conference of the IEEE Engineering in Medicine and Biology
+          Society (EMBC)</i>, 2019.
+          <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8037620">[paper]</a>
+        </p></li>
+      </ul>
+    </section>
 
     <!-- Awards -->
-    <h3 id="awards">Awards</h3>
-    <ul>
-      <li>Hong Kong Research Grants Council Postdoctoral Fellowship, 2024.</li>
-      <li>NeurIPS Scholar Award, 2023.</li>
-      <li>HKUST Redbird Academic Excellent Scholarship, 2021.</li>
-      <li>Outstanding Master's Thesis Award of Chinese Institute of Electronics, 2018.</li>
-      <li>Excellent Master Thesis in Fujian Province, 2017.</li>
-    </ul>
+    <section>
+      <h3 id="awards">Awards</h3>
+      <ul>
+        <li>Hong Kong Research Grants Council Postdoctoral Fellowship, 2024.</li>
+        <li>NeurIPS Scholar Award, 2023.</li>
+        <li>HKUST Redbird Academic Excellent Scholarship, 2021.</li>
+        <li>Outstanding Master's Thesis Award of Chinese Institute of Electronics, 2018.</li>
+        <li>Excellent Master Thesis in Fujian Province, 2017.</li>
+      </ul>
+    </section>
 
     <!-- Academic Service -->
-    <h3 id="service">Academic Service</h3>
-    <ul>
-      <li><p><b>Conference review:</b> NeurIPS, ICML, ICLR, AISTATS, AAAI (PC member).</p></li>
-      <li><p><b>Journal review:</b> Journal of the Royal Statistical Society, Journal of Machine Learning Research,
-        Transactions on Machine Learning Research, IEEE Trans. on Signal Processing,
-        IEEE Trans. on Signal and Information Processing over Networks,
-        IEEE Trans. on Network Science and Engineering.</p></li>
-    </ul>
+    <section>
+      <h3 id="service">Academic Service</h3>
+      <ul>
+        <li><p><b>Conference review:</b> NeurIPS, ICML, ICLR, AISTATS, AAAI (PC member).</p></li>
+        <li><p><b>Journal review:</b> Journal of the Royal Statistical Society, Journal of Machine
+          Learning Research, Transactions on Machine Learning Research,
+          IEEE Trans. on Signal Processing,
+          IEEE Trans. on Signal and Information Processing over Networks,
+          IEEE Trans. on Network Science and Engineering.</p></li>
+      </ul>
+    </section>
 
-  </div><!-- end .content -->
+  </main>
 </div><!-- end .main-wrapper -->
 
 </body>
