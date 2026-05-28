@@ -63,12 +63,12 @@
     }
 
     /* ══════════════════════════════
-       PAGE WRAPPER
+       PAGE WRAPPER  ← wider now
     ══════════════════════════════ */
     .page {
-      max-width: 1020px;
+      max-width: 1280px;        /* ← increased from 1020px */
       margin: 40px auto 60px auto;
-      padding: 0 30px;
+      padding: 0 40px;          /* ← slightly more side padding to match */
       display: flex;
       flex-direction: row;
       gap: 40px;
@@ -79,15 +79,14 @@
        LEFT SIDEBAR
     ══════════════════════════════ */
     .sidebar {
-      flex: 0 0 220px;
-      width: 220px;
+      flex: 0 0 230px;
+      width: 230px;
       position: sticky;
       top: 65px;
       align-self: flex-start;
       text-align: center;
     }
 
-    /* Card wrapper for sidebar */
     .sidebar-card {
       background: #fff;
       border-radius: 14px;
@@ -161,7 +160,6 @@
       transform: translateY(-1px);
     }
 
-    /* Research interest tags in sidebar */
     .sidebar .s-tags {
       margin-top: 14px;
     }
@@ -195,7 +193,6 @@
       min-width: 0;
     }
 
-    /* ── Content card ── */
     .card {
       background: #fff;
       border-radius: 14px;
@@ -205,7 +202,6 @@
       border: 1px solid #e8edf3;
     }
 
-    /* ── Section heading ── */
     .section-heading {
       display: flex;
       align-items: center;
@@ -236,7 +232,6 @@
       padding: 0;
     }
 
-    /* ── About me bio text ── */
     .card p {
       font-size: 15px;
       line-height: 1.8;
@@ -247,7 +242,6 @@
     .card a { color: #2c6fad; text-decoration: none; }
     .card a:hover { text-decoration: underline; }
 
-    /* ── Publication subsection heading ── */
     .pub-category {
       font-size: 13px;
       font-weight: bold;
@@ -260,7 +254,6 @@
     }
     .pub-category:first-of-type { margin-top: 4px; }
 
-    /* ── Publication note ── */
     .pub-note {
       font-size: 13px;
       color: #7a90a8;
@@ -268,7 +261,6 @@
       font-style: italic;
     }
 
-    /* ── Publication list ── */
     .pub-list {
       list-style: none;
       padding: 0;
@@ -300,7 +292,6 @@
     }
     .pub-list li a:hover { background: #d0e4f7; }
 
-    /* ── Awards list ── */
     .award-list {
       list-style: none;
       padding: 0;
@@ -322,7 +313,6 @@
       margin-top: 1px;
     }
 
-    /* ── Service list ── */
     .service-block {
       margin-bottom: 12px;
       font-size: 14.5px;
@@ -375,7 +365,7 @@
   <!-- ════════ LEFT SIDEBAR ════════ -->
   <aside class="sidebar">
     <div class="sidebar-card">
-      <img src="pictures/github.png" alt="Jiaxi Ying">
+      <img src="pictures/github_new.png" alt="Jiaxi Ying">
       <div class="s-name">Jiaxi Ying</div>
       <div class="s-title">Postdoctoral Fellow</div>
       <div class="s-dept">Dept. of Mathematics<br>HKUST</div>
@@ -415,9 +405,10 @@
         <a href="https://www.danielppalomar.com/">Prof. Daniel P. Palomar</a>.
       </p>
       <p>
-        My primary research interests lie at the intersection of machine learning, numerical
-        optimization, network science, and high-dimensional statistics, with applications to
-        financial systems.
+        My primary research interests lie at the intersection of machine learning, statistics,
+        numerical optimization, and artificial intelligence, with applications in financial
+        systems. My research work focuses on graph learning in financial markets, factor models,
+        portfolio optimization, and principal component analysis.
       </p>
     </div>
 
