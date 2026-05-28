@@ -6,15 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="RzstCYPRCJb9xMIpZ3NgZoW3OmlixOBn3z2bVwZpPNU" />
 
-  <!-- Bootstrap 3 (explicit https) -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css">
-
-  <!-- MathJax 3 with explicit inline + display delimiter config -->
+  <!-- MathJax 3 with explicit delimiter config -->
   <script>
     window.MathJax = {
       tex: {
@@ -27,189 +19,210 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
   <style>
-    /* ── Reset & Base ── */
+    /* ── Base ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Helvetica, Arial, sans-serif;
       font-size: 15px;
       color: #333;
-      margin-bottom: 60px;
-      background-color: #fff;
+      background: #fff;
     }
 
-    /* ── Navigation ── */
-    .navbar-inverse {
+    /* ── Navbar ── */
+    .navbar {
       background-color: #2c3e50;
-      border: none;
-      border-radius: 0;
-      margin-bottom: 0;
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .navbar-inverse .navbar-nav > li > a {
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar ul li a {
+      display: block;
       color: #ecf0f1;
-      font-size: 15px;
+      text-decoration: none;
+      padding: 14px 18px;
+      font-size: 14px;
     }
-    .navbar-inverse .navbar-nav > li > a:hover {
-      color: #fff;
+    .navbar ul li a:hover {
       background-color: #3d5166;
+      color: #fff;
     }
 
-    /* ── Main layout wrapper ── */
-    /* Kept outside Bootstrap grid to avoid display:block conflict */
-    .main-wrapper {
-      max-width: 1100px;
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 1000px;
       margin: 40px auto;
       padding: 0 30px;
       display: flex;
       flex-direction: row;
-      gap: 50px;
-      align-items: flex-start; /* required for sticky to work in flex */
+      gap: 40px;
+      align-items: flex-start;
     }
 
-    /* ── LEFT SIDEBAR ── */
+    /* ══════════════════════════════
+       LEFT SIDEBAR  ~250px wide
+       exactly like jonbarron.info
+    ══════════════════════════════ */
     .sidebar {
-      flex: 0 0 210px;
-      min-width: 210px;
+      flex: 0 0 230px;
+      width: 230px;
       text-align: center;
-      /* Sticky sidebar: needs align-self:flex-start on parent AND position:sticky here */
       position: sticky;
-      top: 20px;
+      top: 55px;           /* clears the navbar height */
+      align-self: flex-start;
     }
     .sidebar img {
-      width: 100%;
-      max-width: 200px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;  /* circular photo — the most popular style */
       display: block;
-      margin: 0 auto 16px auto;
+      margin: 0 auto 14px auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
-    .sidebar .name {
-      font-size: 21px;
+    .sidebar .s-name {
+      font-size: 20px;
       font-weight: bold;
-      margin-bottom: 4px;
       color: #2c3e50;
+      margin-bottom: 5px;
+      line-height: 1.3;
     }
-    .sidebar .role {
+    .sidebar .s-title {
       font-size: 13px;
-      color: #666;
-      margin-bottom: 2px;
-    }
-    .sidebar .dept {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 12px;
+      color: #555;
+      margin-bottom: 3px;
       line-height: 1.5;
     }
-    .sidebar hr {
-      border-color: #ddd;
-      margin: 12px 0;
+    .sidebar .s-dept {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 14px;
+      line-height: 1.5;
     }
-    .sidebar .contact-links {
+    .sidebar .s-divider {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 10px auto;
+      width: 80%;
+    }
+    .sidebar .s-links {
       font-size: 13px;
       line-height: 2.2;
-      text-align: center;
     }
-    .sidebar .contact-links a {
+    .sidebar .s-links a {
       color: #2980b9;
       text-decoration: none;
+      display: block;
     }
-    .sidebar .contact-links a:hover {
+    .sidebar .s-links a:hover {
       text-decoration: underline;
     }
+    .sidebar .s-email {
+      font-size: 12px;
+      color: #555;
+      word-break: break-all;
+      margin-bottom: 6px;
+    }
 
-    /* ── RIGHT CONTENT ── */
+    /* ══════════════════════════════
+       RIGHT CONTENT  fills rest
+    ══════════════════════════════ */
     .content {
       flex: 1 1 0%;
-      min-width: 0; /* prevents flex overflow on long text/links */
+      min-width: 0;
     }
     .content p {
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.75;
       margin-bottom: 14px;
-    }
-    .content h3 {
-      font-size: 20px;
-      font-weight: bold;
-      border-bottom: 2px solid #2c3e50;
-      padding-bottom: 6px;
-      margin-top: 36px;
-      margin-bottom: 16px;
-      color: #2c3e50;
-    }
-    .content h4 {
-      font-size: 16px;
-      font-weight: bold;
-      margin-top: 22px;
-      margin-bottom: 10px;
-      color: #444;
-    }
-    .content ul {
-      padding-left: 20px;
-      margin-bottom: 0;
-    }
-    .content ul li {
-      margin-bottom: 10px;
-      font-size: 15px;
-      line-height: 1.65;
-    }
-    .content ul li p {
-      margin: 0;
     }
     .content a {
       color: #2980b9;
       text-decoration: none;
     }
-    .content a:hover {
-      text-decoration: underline;
-    }
+    .content a:hover { text-decoration: underline; }
 
-    /* ── Responsive: stack sidebar above content on small screens ── */
-    @media (max-width: 768px) {
-      .main-wrapper {
+    .content h3 {
+      font-size: 19px;
+      font-weight: bold;
+      color: #2c3e50;
+      border-bottom: 2px solid #2c3e50;
+      padding-bottom: 5px;
+      margin-top: 38px;
+      margin-bottom: 14px;
+    }
+    .content h4 {
+      font-size: 15px;
+      font-weight: bold;
+      color: #444;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .content ul {
+      padding-left: 18px;
+      margin-bottom: 4px;
+    }
+    .content ul li {
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .content ul li p { margin: 0; }
+
+    /* ── Responsive: stack on mobile ── */
+    @media (max-width: 720px) {
+      .page {
         flex-direction: column;
         align-items: center;
-        padding: 0 15px;
       }
       .sidebar {
-        position: static; /* disable sticky on mobile */
-        flex: none;
+        position: static;
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation Bar ── -->
-<nav class="navbar navbar-inverse" role="navigation">
-  <div class="container">
-    <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#service">Academic Service</a></li>
-    </ul>
-  </div>
+<!-- ── Navbar ── -->
+<nav class="navbar">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#service">Academic Service</a></li>
+  </ul>
 </nav>
 
-<!-- ── Main Layout: outside Bootstrap grid to avoid flex conflict ── -->
-<div class="main-wrapper">
+<!-- ── Two-column layout ── -->
+<div class="page">
 
-  <!-- LEFT SIDEBAR -->
-  <aside class="sidebar" role="complementary">
+  <!-- ════════ LEFT SIDEBAR ════════ -->
+  <aside class="sidebar">
     <img src="pictures/math.jpg" alt="Jiaxi Ying">
-    <div class="name">Jiaxi Ying</div>
-    <div class="role">Postdoctoral Fellow</div>
-    <div class="dept">Department of Mathematics<br>HKUST</div>
-    <hr>
-    <div class="contact-links">
-      <div>Email: <a href="mailto:jx.ying@connect.ust.hk">jx.ying@connect.ust.hk</a></div>
-      <div><a href="https://scholar.google.com/citations?user=_IzItlcAAAAJ&hl=zh-CN">Google Scholar</a></div>
+    <div class="s-name">Jiaxi Ying</div>
+    <div class="s-title">Postdoctoral Fellow</div>
+    <div class="s-dept">Department of Mathematics<br>HKUST</div>
+    <hr class="s-divider">
+    <div class="s-email">jx.ying@connect.ust.hk</div>
+    <div class="s-links">
+      <a href="mailto:jx.ying@connect.ust.hk">Email</a>
+      <a href="https://scholar.google.com/citations?user=_IzItlcAAAAJ&hl=zh-CN">Google Scholar</a>
     </div>
   </aside>
 
-  <!-- RIGHT CONTENT -->
-  <main class="content" role="main">
+  <!-- ════════ RIGHT CONTENT ════════ -->
+  <main class="content">
 
     <!-- Bio -->
     <p>
@@ -458,7 +471,7 @@
     </section>
 
   </main>
-</div><!-- end .main-wrapper -->
+</div>
 
 </body>
 </html>
